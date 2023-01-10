@@ -1,32 +1,33 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/movie/genre.dart';
-import 'package:ditonton/domain/entities/tv_series/tv_series.dart';
-import 'package:ditonton/domain/entities/tv_series/tv_series_detail.dart';
+import 'package:ditonton/domain/entities/tv/tv.dart';
+import 'package:ditonton/domain/entities/tv/tv_detail.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/tv/tv_series_detail_notifier.dart';
+import 'package:ditonton/presentation/provider/tv/tv_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
-class TvSeriesDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail-tv-series';
+class TvDetailPage extends StatefulWidget {
+  static const ROUTE_NAME = '/detail-tv';
 
   final int id;
-  TvSeriesDetailPage({required this.id});
+
+  TvDetailPage({required this.id});
 
   @override
-  _TvSeriesDetailPageState createState() => _TvSeriesDetailPageState();
+  _TvDetailPageState createState() => _TvDetailPageState();
 }
 
-class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
+class _TvDetailPageState extends State<TvDetailPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<TvSeriesDetailNotifier>(context, listen: false)
-          .fetchTvSeriesDetail(widget.id);
-      Provider.of<TvSeriesDetailNotifier>(context, listen: false)
+      Provider.of<TvDetailNotifier>(context, listen: false)
+          .fetchTvDetail(widget.id);
+      Provider.of<TvDetailNotifier>(context, listen: false)
           .loadWatchlistStatus(widget.id);
     });
   }
@@ -34,18 +35,18 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<TvSeriesDetailNotifier>(
+      body: Consumer<TvDetailNotifier>(
         builder: (context, provider, child) {
-          if (provider.tvSeriesState == RequestState.Loading) {
+          if (provider.tvState == RequestState.Loading) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.tvSeriesState == RequestState.Loaded) {
-            final tvSeries = provider.tvSeries;
+          } else if (provider.tvState == RequestState.Loaded) {
+            final tv = provider.tv;
             return SafeArea(
               child: DetailContent(
-                tvSeries,
-                provider.tvSeriesRecommendations,
+                tv,
+                provider.tvRecommendations,
                 provider.isAddedToWatchlist,
               ),
             );
@@ -59,11 +60,11 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
 }
 
 class DetailContent extends StatelessWidget {
-  final TvSeriesDetail tvSeries;
-  final List<TvSeries> recommendations;
+  final TvDetail tv;
+  final List<Tv> recommendations;
   final bool isAddedWatchlist;
 
-  DetailContent(this.tvSeries, this.recommendations, this.isAddedWatchlist);
+  DetailContent(this.tv, this.recommendations, this.isAddedWatchlist);
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,7 @@ class DetailContent extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: 'https://image.tmdb.org/t/p/w500${tvSeries.posterPath}',
+          imageUrl: 'https://image.tmdb.org/t/p/w500${tv.posterPath}',
           width: screenWidth,
           placeholder: (context, url) => Center(
             child: CircularProgressIndicator(),
@@ -102,33 +103,31 @@ class DetailContent extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              tvSeries.name,
+                              tv.name,
                               style: kHeading5,
                             ),
                             ElevatedButton(
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  await Provider.of<TvSeriesDetailNotifier>(
-                                          context,
+                                  await Provider.of<TvDetailNotifier>(context,
                                           listen: false)
-                                      .addWatchlist(tvSeries);
+                                      .addWatchlist(tv);
                                 } else {
-                                  await Provider.of<TvSeriesDetailNotifier>(
-                                          context,
+                                  await Provider.of<TvDetailNotifier>(context,
                                           listen: false)
-                                      .removeFromWatchlist(tvSeries);
+                                      .removeFromWatchlist(tv);
                                 }
 
-                                final message =
-                                    Provider.of<TvSeriesDetailNotifier>(context,
-                                            listen: false)
-                                        .watchlistMessage;
+                                final message = Provider.of<TvDetailNotifier>(
+                                        context,
+                                        listen: false)
+                                    .watchlistMessage;
 
                                 if (message ==
-                                        TvSeriesDetailNotifier
+                                        TvDetailNotifier
                                             .watchlistAddSuccessMessage ||
                                     message ==
-                                        TvSeriesDetailNotifier
+                                        TvDetailNotifier
                                             .watchlistRemoveSuccessMessage) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text(message)));
@@ -153,15 +152,15 @@ class DetailContent extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              _showGenres(tvSeries.genres),
+                              _showGenres(tv.genres),
                             ),
                             Text(
-                              _formatListDuration(tvSeries.episodeRunTime),
+                              _formatListDuration(tv.episodeRunTime),
                             ),
                             Row(
                               children: [
                                 RatingBarIndicator(
-                                  rating: tvSeries.voteAverage / 2,
+                                  rating: tv.voteAverage / 2,
                                   itemCount: 5,
                                   itemBuilder: (context, index) => Icon(
                                     Icons.star,
@@ -169,7 +168,7 @@ class DetailContent extends StatelessWidget {
                                   ),
                                   itemSize: 24,
                                 ),
-                                Text('${tvSeries.voteAverage}')
+                                Text('${tv.voteAverage}')
                               ],
                             ),
                             SizedBox(height: 16),
@@ -178,22 +177,21 @@ class DetailContent extends StatelessWidget {
                               style: kHeading6,
                             ),
                             Text(
-                              tvSeries.overview,
+                              tv.overview,
                             ),
                             SizedBox(height: 16),
                             Text(
                               'Season',
                               style: kHeading6,
                             ),
-                            Consumer<TvSeriesDetailNotifier>(
+                            Consumer<TvDetailNotifier>(
                               builder: (context, data, child) {
                                 return Container(
                                   height: 150,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
-                                      final tvSeriesData =
-                                          tvSeries.seasons[index];
+                                      final tvData = tv.seasons[index];
                                       return Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Column(
@@ -202,12 +200,10 @@ class DetailContent extends StatelessWidget {
                                               onTap: () {
                                                 Navigator.pushReplacementNamed(
                                                   context,
-                                                  TvSeriesDetailPage.ROUTE_NAME,
-                                                  arguments: tvSeriesData.id,
+                                                  TvDetailPage.ROUTE_NAME,
+                                                  arguments: tvData.id,
                                                 );
                                               },
-                                              // child: Text(
-                                              //     tvSeriesData.posterPath ?? "-"),
                                               child: ClipRRect(
                                                 borderRadius: BorderRadius.all(
                                                   Radius.circular(8),
@@ -216,7 +212,7 @@ class DetailContent extends StatelessWidget {
                                                     height: 100,
                                                     fit: BoxFit.cover,
                                                     imageUrl:
-                                                        'https://image.tmdb.org/t/p/w500${tvSeriesData.posterPath}',
+                                                        'https://image.tmdb.org/t/p/w500${tvData.posterPath}',
                                                     placeholder:
                                                         (context, url) =>
                                                             Center(
@@ -240,14 +236,14 @@ class DetailContent extends StatelessWidget {
                                                         )),
                                               ),
                                             ),
-                                            Text(tvSeriesData.name),
+                                            Text(tvData.name),
                                             Text(
-                                                "Episode : ${tvSeriesData.episodeCount}"),
+                                                "Episode : ${tvData.episodeCount}"),
                                           ],
                                         ),
                                       );
                                     },
-                                    itemCount: tvSeries.seasons.length,
+                                    itemCount: tv.seasons.length,
                                   ),
                                 );
                               },
@@ -257,7 +253,7 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            Consumer<TvSeriesDetailNotifier>(
+                            Consumer<TvDetailNotifier>(
                               builder: (context, data, child) {
                                 if (data.recommendationState ==
                                     RequestState.Loading) {
@@ -274,15 +270,15 @@ class DetailContent extends StatelessWidget {
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
-                                        final tvSeries = recommendations[index];
+                                        final tv = recommendations[index];
                                         return Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                TvSeriesDetailPage.ROUTE_NAME,
-                                                arguments: tvSeries.id,
+                                                TvDetailPage.ROUTE_NAME,
+                                                arguments: tv.id,
                                               );
                                             },
                                             child: ClipRRect(
@@ -291,7 +287,7 @@ class DetailContent extends StatelessWidget {
                                               ),
                                               child: CachedNetworkImage(
                                                   imageUrl:
-                                                      'https://image.tmdb.org/t/p/w500${tvSeries.posterPath}',
+                                                      'https://image.tmdb.org/t/p/w500${tv.posterPath}',
                                                   placeholder: (context, url) =>
                                                       Center(
                                                         child:

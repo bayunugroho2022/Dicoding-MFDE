@@ -1,7 +1,7 @@
 import 'package:ditonton/presentation/pages/about/about_page.dart';
 import 'package:ditonton/presentation/pages/movie/home_movie_page.dart';
 import 'package:ditonton/presentation/pages/watchlist/watchlist_page.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/presentation/pages/search/search_page.dart';
 import 'package:ditonton/presentation/pages/tv/tv_page.dart';
 import 'package:ditonton/presentation/provider/home/home_notifier.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +70,8 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+                Navigator.pushNamed(context, SearchPage.ROUTE_NAME,
+                    arguments: notifier.selectedScreen == 0 ? "movie" : "tv");
               },
               icon: Icon(Icons.search),
             )
@@ -80,7 +81,7 @@ class _HomePageState extends State<HomePage> {
           index: notifier.selectedScreen,
           children: [
             HomeMovieScreen(),
-            TvSeriesScreen(),
+            TvScreen(),
           ],
         ),
       );

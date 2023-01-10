@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 
 class CardList extends StatelessWidget {
   final dataList;
-  final bool isTvSeries;
+  final bool isTv;
 
-  CardList({this.dataList, this.isTvSeries = false});
+  CardList({this.dataList, this.isTv = false});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class CardList extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(
             context,
-            isTvSeries
-                ? TvSeriesDetailPage.ROUTE_NAME
+            isTv
+                ? TvDetailPage.ROUTE_NAME
                 : MovieDetailPage.ROUTE_NAME,
             arguments: dataList.id,
           );
@@ -38,7 +38,7 @@ class CardList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      isTvSeries ? dataList.name : dataList.title ?? '-',
+                      isTv ? dataList.name : dataList.title ?? '-',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: kHeading6,

@@ -1,16 +1,16 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie/movie.dart';
-import 'package:ditonton/domain/entities/tv_series/tv_series.dart';
+import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/usecases/movie/get_watchlist_movies.dart';
-import 'package:ditonton/domain/usecases/tv/get_watchlist_tv_series.dart';
+import 'package:ditonton/domain/usecases/tv/get_watchlist_tv.dart';
 import 'package:flutter/foundation.dart';
 
 class WatchlistNotifier extends ChangeNotifier {
   var _watchlistMovies = <Movie>[];
   List<Movie> get watchlistMovies => _watchlistMovies;
 
-  var _watchlistTvSeries = <TvSeries>[];
-  List<TvSeries> get watchlistTvSeries => _watchlistTvSeries;
+  var _watchlistTvSeries = <Tv>[];
+  List<Tv> get watchlistTvSeries => _watchlistTvSeries;
 
   var _watchlistState = RequestState.Empty;
   RequestState get watchlistState => _watchlistState;
@@ -22,7 +22,7 @@ class WatchlistNotifier extends ChangeNotifier {
       {required this.getWatchlistMovies, this.getWatchlistTvSeries});
 
   final GetWatchlistMovies getWatchlistMovies;
-  final GetWatchlistTvSeries? getWatchlistTvSeries;
+  final GetWatchlistTv? getWatchlistTvSeries;
 
   Future<void> fetchWatchlistMovies() async {
     _watchlistState = RequestState.Loading;

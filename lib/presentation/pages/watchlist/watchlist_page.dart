@@ -56,7 +56,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
                       itemBuilder: (context, index) {
                         final tvSeries = data.watchlistTvSeries[index];
                         return CardList(
-                          isTvSeries: true,
+                          isTv: true,
                           dataList: tvSeries,
                         );
                       },
