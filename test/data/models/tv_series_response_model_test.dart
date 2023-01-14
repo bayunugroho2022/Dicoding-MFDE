@@ -8,7 +8,7 @@ import '../../json_reader.dart';
 import '../../dummy_data/dummy_objects.dart';
 
 void main() {
-  final tTVSeriesModel = TvSeriesModel(
+  final tTVSeriesModel = TvModel(
     backdropPath: "/1qpUk27LVI9UoTS7S0EixUBj5aR.jpg",
     firstAirDate: "2022-03-24",
     genreIds: [10759, 10765],
@@ -25,7 +25,7 @@ void main() {
     voteCount: 472,
   );
   final tTVSeriesResponseModel = TvSeriesResponse(
-      results: <TvSeriesModel>[tTVSeriesModel],
+      results: <TvModel>[tTVSeriesModel],
       totalResults: 1,
       totalPages: 1,
       page: 1);

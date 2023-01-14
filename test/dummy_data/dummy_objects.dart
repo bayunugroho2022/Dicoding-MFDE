@@ -65,7 +65,7 @@ final testMovieMap = {
   'title': 'title',
 };
 
-final testTVSeriesModel = TvSeriesModel(
+final testTVModel = TvModel(
     backdropPath: "/1qpUk27LVI9UoTS7S0EixUBj5aR.jpg",
     firstAirDate: "2022-03-24",
     genreIds: [10759, 10765],
@@ -81,9 +81,9 @@ final testTVSeriesModel = TvSeriesModel(
     voteAverage: 8.7,
     voteCount: 472);
 
-final testTVSeriesModelList = <TvSeriesModel>[testTVSeriesModel];
+final testTVSeriesModelList = <TvModel>[testTVModel];
 
-final testTVSeries = testTVSeriesModel.toEntity();
+final testTVSeries = testTVModel.toEntity();
 
 final testTVSeriesList = <Tv>[testTVSeries];
 
@@ -125,12 +125,12 @@ final testTVSeriesDetailResponse = TvSeriesDetailModel(
 
 final testTVDetailResponseEntity = testTVSeriesDetailResponse.toEntity();
 
-final testTVSeriesTable =
+final testTVTable =
 TvSeriesTable.fromEntity(testTVDetailResponseEntity);
 
-final testTVSeriesTableList = <TvSeriesTable>[testTVSeriesTable];
+final testTVSeriesTableList = <TvSeriesTable>[testTVTable];
 
-final testWatchlistTVSeries = [testTVSeriesTable.toEntity()];
+final testWatchlistTVSeries = [testTVTable.toEntity()];
 
 final testTVSeriesMaping = {
   'id': 1,

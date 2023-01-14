@@ -67,6 +67,12 @@ void init() {
   );
 
   locator.registerFactory(
+    () => NowPlayingTvNotifier(
+        getNowPlayingTv: locator(),
+    ),
+  );
+
+  locator.registerFactory(
     () => TvDetailNotifier(
       getTvRecommendations: locator(),
       getWatchListStatus: locator(),
@@ -109,7 +115,7 @@ void init() {
   );
 
   locator.registerLazySingleton<TvRepository>(
-    () => TvSeriesRepositoryImpl(
+    () => TvRepositoryImpl(
       remoteDataSource: locator(),
       localDataSource: locator(),
     ),

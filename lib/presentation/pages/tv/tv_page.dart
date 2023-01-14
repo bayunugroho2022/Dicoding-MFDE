@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/tv/tv.dart';
+import 'package:ditonton/presentation/pages/tv/now_playing_tv.dart';
 import 'package:ditonton/presentation/pages/tv/popular_tv.dart';
 import 'package:ditonton/presentation/pages/tv/top_rated_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/tv_series_detail_page.dart';
@@ -37,10 +38,12 @@ class _TvScreenState extends State<TvScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Now Playing',
-                style: kHeading6,
-              ),
+              _buildSubHeading(
+                  title: 'Now Playing',
+                  onTap: () => {
+                    Navigator.pushNamed(
+                        context, NowPlayingTvPage.ROUTE_NAME),
+                  }),
               Consumer<TvListNotifier>(builder: (context, data, child) {
                 final state = data.nowPlayingState;
                 if (state == RequestState.Loading) {

@@ -39,3 +39,4 @@ export 'package:ditonton/presentation/provider/tv/top_rated_tv_notifier.dart';
 export 'package:ditonton/presentation/provider/tv/tv_detail_notifier.dart';
 export 'package:ditonton/presentation/provider/tv/tv_list_notifier.dart';
 export 'package:get_it/get_it.dart';
+export 'package:ditonton/presentation/provider/tv/now_playing_tv.dart';

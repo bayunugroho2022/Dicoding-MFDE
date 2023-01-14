@@ -3,7 +3,7 @@ import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final tTVSeriesModel = TvSeriesModel(
+  final tTVSeriesModel = TvModel(
     backdropPath: 'backdropPath',
     genreIds: [1, 2, 3],
     id: 1,

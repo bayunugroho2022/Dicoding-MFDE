@@ -39,7 +39,7 @@ void main() {
                         'application/json; charset=utf-8',
                   }));
       // act
-      final result = await dataSourceImpl.getNowPlayingTvSeries();
+      final result = await dataSourceImpl.getNowPlayingTv();
       print(result);
       print(testTVShowList);
       // assert
@@ -53,7 +53,7 @@ void main() {
       when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/on_the_air?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSourceImpl.getNowPlayingTvSeries();
+      final call = dataSourceImpl.getNowPlayingTv();
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });
@@ -74,7 +74,7 @@ void main() {
                         'application/json; charset=utf-8',
                   }));
       //act
-      final result = await dataSourceImpl.getTvSeriesDetail(id);
+      final result = await dataSourceImpl.getTvDetail(id);
       //assert
       expect(result, equals(testTVDetail));
     });
@@ -86,7 +86,7 @@ void main() {
       when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/$id?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       //act
-      final call = dataSourceImpl.getTvSeriesDetail(id);
+      final call = dataSourceImpl.getTvDetail(id);
       //assert
       expect(() => call, throwsA(isA<ServerException>()));
     });
@@ -106,7 +106,7 @@ void main() {
           .thenAnswer((_) async => http.Response(
               readJson('dummy_data/tv_series_recommendations.json'), 200));
       // act
-      final result = await dataSourceImpl.getTvSeriesRecommendations(id);
+      final result = await dataSourceImpl.getTvRecommendations(id);
       //assert
       expect(result, equals(testRecommendationTVShowList));
     });
@@ -118,7 +118,7 @@ void main() {
               .get(Uri.parse('$BASE_URL/tv/$id/recommendations?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSourceImpl.getTvSeriesRecommendations(id);
+      final call = dataSourceImpl.getTvRecommendations(id);
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });
@@ -140,7 +140,7 @@ void main() {
                         'application/json; charset=utf-8',
                   }));
       // act
-      final result = await dataSourceImpl.getPopularTvSeries();
+      final result = await dataSourceImpl.getPopularTv();
       // assert
       expect(result, testTVShowList);
     });
@@ -152,7 +152,7 @@ void main() {
       when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/popular?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSourceImpl.getPopularTvSeries();
+      final call = dataSourceImpl.getPopularTv();
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });
@@ -172,7 +172,7 @@ void main() {
                         'application/json; charset=utf-8',
                   }));
       // act
-      final result = await dataSourceImpl.getTopRatedTvSeries();
+      final result = await dataSourceImpl.getTopRatedTv();
       // assert
       expect(result, testTVShowList);
     });
@@ -183,7 +183,7 @@ void main() {
       when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSourceImpl.getTopRatedTvSeries();
+      final call = dataSourceImpl.getTopRatedTv();
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });
@@ -207,7 +207,7 @@ void main() {
                         'application/json; charset=utf-8',
                   }));
       //act
-      final result = await dataSourceImpl.searchTvSeries(query);
+      final result = await dataSourceImpl.searchTv(query);
 
       //assert
       expect(result, tSearchResult);
@@ -220,7 +220,7 @@ void main() {
               .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$query')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       //act
-      final call = dataSourceImpl.searchTvSeries(query);
+      final call = dataSourceImpl.searchTv(query);
       //assert
       expect(() => call, throwsA(isA<ServerException>()));
     });

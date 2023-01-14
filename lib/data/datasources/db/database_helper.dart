@@ -28,7 +28,7 @@ class DatabaseHelper {
     final path = await getDatabasesPath();
     final databasePath = '$path/ditonton.db';
 
-    var db = await openDatabase(databasePath, version: 1, onCreate: _onCreate);
+    var db = await openDatabase(databasePath, version: 2, onCreate: _onCreate);
     return db;
   }
 
@@ -37,6 +37,15 @@ class DatabaseHelper {
       CREATE TABLE  $_tblWatchlist (
         id INTEGER PRIMARY KEY,
         title TEXT,
+        overview TEXT,
+        posterPath TEXT
+      );
+    ''');
+
+    await db.execute('''
+      CREATE TABLE  $_tblTvSeriesWatchlist (
+        id INTEGER PRIMARY KEY,
+        name TEXT,
         overview TEXT,
         posterPath TEXT
       );
@@ -94,17 +103,21 @@ class DatabaseHelper {
   }
 
   Future<Map<String, dynamic>?> getTVSeriesById(int id) async {
-    final db = await database;
-    final results = await db!.query(
-      _tblTvSeriesWatchlist,
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    try {
+      final db = await database;
+      final results = await db!.query(
+        _tblTvSeriesWatchlist,
+        where: 'id = ?',
+        whereArgs: [id],
+      );
 
-    if (results.isNotEmpty) {
-      return results.first;
-    } else {
-      return null;
+      if (results.isNotEmpty) {
+        return results.first;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
     }
   }
 

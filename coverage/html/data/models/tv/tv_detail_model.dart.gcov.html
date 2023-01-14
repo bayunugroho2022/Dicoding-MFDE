@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2023-01-10 17:33:18</td>
+            <td class="headerValue">2023-01-14 19:37:02</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -66,7 +66,7 @@
 <a name="4"><span class="lineNum">       4 </span>            : import 'package:equatable/equatable.dart';</a>
 <a name="5"><span class="lineNum">       5 </span>            : </a>
 <a name="6"><span class="lineNum">       6 </span>            : class TvSeriesDetailModel extends Equatable {</a>
-<a name="7"><span class="lineNum">       7 </span><span class="lineCov">          8 :   TvSeriesDetailModel({</span></a>
+<a name="7"><span class="lineNum">       7 </span><span class="lineCov">          9 :   TvSeriesDetailModel({</span></a>
 <a name="8"><span class="lineNum">       8 </span>            :     required this.adult,</a>
 <a name="9"><span class="lineNum">       9 </span>            :     required this.backdropPath,</a>
 <a name="10"><span class="lineNum">      10 </span>            :     required this.episodeRunTime,</a>
@@ -160,21 +160,21 @@
 <a name="98"><span class="lineNum">      98 </span><span class="lineCov">          1 :         &quot;vote_count&quot;: voteCount,</span></a>
 <a name="99"><span class="lineNum">      99 </span>            :       };</a>
 <a name="100"><span class="lineNum">     100 </span>            : </a>
-<a name="101"><span class="lineNum">     101 </span><span class="lineCov">          7 :   TvDetail toEntity() {</span></a>
-<a name="102"><span class="lineNum">     102 </span><span class="lineCov">          7 :     return TvDetail(</span></a>
-<a name="103"><span class="lineNum">     103 </span><span class="lineCov">          7 :       adult: this.adult,</span></a>
-<a name="104"><span class="lineNum">     104 </span><span class="lineCov">          7 :       backdropPath: this.backdropPath,</span></a>
-<a name="105"><span class="lineNum">     105 </span><span class="lineCov">          7 :       episodeRunTime: this.episodeRunTime,</span></a>
-<a name="106"><span class="lineNum">     106 </span><span class="lineCov">         27 :       genres: this.genres.map((genre) =&gt; genre.toEntity()).toList(),</span></a>
-<a name="107"><span class="lineNum">     107 </span><span class="lineCov">          7 :       id: this.id,</span></a>
-<a name="108"><span class="lineNum">     108 </span><span class="lineCov">          7 :       name: this.name,</span></a>
-<a name="109"><span class="lineNum">     109 </span><span class="lineCov">          7 :       overview: this.overview,</span></a>
-<a name="110"><span class="lineNum">     110 </span><span class="lineCov">          7 :       posterPath: this.posterPath,</span></a>
-<a name="111"><span class="lineNum">     111 </span><span class="lineCov">          7 :       numberOfEpisodes: this.numberOfEpisodes,</span></a>
-<a name="112"><span class="lineNum">     112 </span><span class="lineCov">          7 :       numberOfSeasons: this.numberOfSeasons,</span></a>
-<a name="113"><span class="lineNum">     113 </span><span class="lineCov">         27 :       seasons: this.seasons.map((season) =&gt; season.toEntity()).toList(),</span></a>
-<a name="114"><span class="lineNum">     114 </span><span class="lineCov">          7 :       voteAverage: this.voteAverage,</span></a>
-<a name="115"><span class="lineNum">     115 </span><span class="lineCov">          7 :       voteCount: this.voteCount,</span></a>
+<a name="101"><span class="lineNum">     101 </span><span class="lineCov">          8 :   TvDetail toEntity() {</span></a>
+<a name="102"><span class="lineNum">     102 </span><span class="lineCov">          8 :     return TvDetail(</span></a>
+<a name="103"><span class="lineNum">     103 </span><span class="lineCov">          8 :       adult: this.adult,</span></a>
+<a name="104"><span class="lineNum">     104 </span><span class="lineCov">          8 :       backdropPath: this.backdropPath,</span></a>
+<a name="105"><span class="lineNum">     105 </span><span class="lineCov">          8 :       episodeRunTime: this.episodeRunTime,</span></a>
+<a name="106"><span class="lineNum">     106 </span><span class="lineCov">         32 :       genres: this.genres.map((genre) =&gt; genre.toEntity()).toList(),</span></a>
+<a name="107"><span class="lineNum">     107 </span><span class="lineCov">          8 :       id: this.id,</span></a>
+<a name="108"><span class="lineNum">     108 </span><span class="lineCov">          8 :       name: this.name,</span></a>
+<a name="109"><span class="lineNum">     109 </span><span class="lineCov">          8 :       overview: this.overview,</span></a>
+<a name="110"><span class="lineNum">     110 </span><span class="lineCov">          8 :       posterPath: this.posterPath,</span></a>
+<a name="111"><span class="lineNum">     111 </span><span class="lineCov">          8 :       numberOfEpisodes: this.numberOfEpisodes,</span></a>
+<a name="112"><span class="lineNum">     112 </span><span class="lineCov">          8 :       numberOfSeasons: this.numberOfSeasons,</span></a>
+<a name="113"><span class="lineNum">     113 </span><span class="lineCov">         32 :       seasons: this.seasons.map((season) =&gt; season.toEntity()).toList(),</span></a>
+<a name="114"><span class="lineNum">     114 </span><span class="lineCov">          8 :       voteAverage: this.voteAverage,</span></a>
+<a name="115"><span class="lineNum">     115 </span><span class="lineCov">          8 :       voteCount: this.voteCount,</span></a>
 <a name="116"><span class="lineNum">     116 </span>            :     );</a>
 <a name="117"><span class="lineNum">     117 </span>            :   }</a>
 <a name="118"><span class="lineNum">     118 </span>            : </a>
@@ -212,7 +212,7 @@
 
   <table width="100%" border=0 cellspacing=0 cellpadding=0>
     <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
-    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.15</a></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="https://github.com/linux-test-project/lcov" target="_parent">LCOV version 1.16</a></td></tr>
   </table>
   <br>
 

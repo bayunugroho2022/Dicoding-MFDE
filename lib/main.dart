@@ -5,6 +5,7 @@ import 'package:ditonton/presentation/pages/home/home_page.dart';
 import 'package:ditonton/presentation/pages/movie/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/movie/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/pages/tv/now_playing_tv.dart';
 import 'package:ditonton/presentation/pages/watchlist/watchlist_page.dart';
 import 'package:ditonton/presentation/pages/search/search_page.dart';
 import 'package:ditonton/presentation/pages/tv/popular_tv.dart';
@@ -17,6 +18,7 @@ import 'package:ditonton/presentation/provider/movie/popular_movies_notifier.dar
 import 'package:ditonton/presentation/provider/movie/top_rated_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/movie/watchlist_movie_notifier.dart';
 import 'package:ditonton/presentation/provider/search/search_notifier.dart';
+import 'package:ditonton/presentation/provider/tv/now_playing_tv.dart';
 import 'package:ditonton/presentation/provider/tv/popular_tv_notifier.dart';
 import 'package:ditonton/presentation/provider/tv/top_rated_tv_notifier.dart';
 import 'package:ditonton/presentation/provider/tv/tv_detail_notifier.dart';
@@ -69,6 +71,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<TvDetailNotifier>(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<NowPlayingTvNotifier>(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -103,6 +108,8 @@ class MyApp extends StatelessWidget {
               return CupertinoPageRoute(builder: (_) => PopularTvPage());
             case TopRatedTvPage.ROUTE_NAME:
               return CupertinoPageRoute(builder: (_) => TopRatedTvPage());
+            case NowPlayingTvPage.ROUTE_NAME:
+              return CupertinoPageRoute(builder: (_) => NowPlayingTvPage());
             case TvDetailPage.ROUTE_NAME:
               final id = settings.arguments as int;
               return MaterialPageRoute(
