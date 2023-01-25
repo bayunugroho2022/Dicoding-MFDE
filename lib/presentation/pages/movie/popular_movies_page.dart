@@ -39,7 +39,6 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                   final tv = result[index];
                   return CardList(
                     dataList: tv,
-                    isTv: true,
                   );
                 },
                 itemCount: result.length,
