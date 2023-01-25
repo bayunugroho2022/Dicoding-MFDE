@@ -85,7 +85,7 @@ final testTVSeriesModelList = <TvModel>[testTVModel];
 
 final testTVSeries = testTVModel.toEntity();
 
-final testTVSeriesList = <Tv>[testTVSeries];
+final testTvList = <Tv>[testTVSeries];
 
 final testTVSeriesResponse = TvSeriesResponse(
     results: testTVSeriesModelList, page: 1, totalPages: 1, totalResults: 1);

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2023-01-14 19:37:02</td>
+            <td class="headerValue">2023-01-25 11:14:12</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -65,8 +65,8 @@
 <a name="3"><span class="lineNum">       3 </span>            : import 'package:ditonton/data/models/tv/tv_table.dart';</a>
 <a name="4"><span class="lineNum">       4 </span>            : </a>
 <a name="5"><span class="lineNum">       5 </span>            : abstract class TvLocalDataSource {</a>
-<a name="6"><span class="lineNum">       6 </span>            :   Future&lt;String&gt; insertTvSeriesWatchlist(TvSeriesTable tvSeries);</a>
-<a name="7"><span class="lineNum">       7 </span>            :   Future&lt;String&gt; removeTvSeriesWatchlist(TvSeriesTable tvSeries);</a>
+<a name="6"><span class="lineNum">       6 </span>            :   Future&lt;String&gt; insertTvWatchlist(TvSeriesTable tvSeries);</a>
+<a name="7"><span class="lineNum">       7 </span>            :   Future&lt;String&gt; removeTvWatchlist(TvSeriesTable tvSeries);</a>
 <a name="8"><span class="lineNum">       8 </span>            :   Future&lt;TvSeriesTable?&gt; getTvById(int id);</a>
 <a name="9"><span class="lineNum">       9 </span>            :   Future&lt;List&lt;TvSeriesTable&gt;&gt; getWatchlistTvSeries();</a>
 <a name="10"><span class="lineNum">      10 </span>            : }</a>
@@ -77,7 +77,7 @@
 <a name="15"><span class="lineNum">      15 </span><span class="lineCov">          1 :   TvSeriesLocalDataSourceImpl({required this.databaseHelper});</span></a>
 <a name="16"><span class="lineNum">      16 </span>            : </a>
 <a name="17"><span class="lineNum">      17 </span><span class="lineCov">          1 :   @override</span></a>
-<a name="18"><span class="lineNum">      18 </span>            :   Future&lt;String&gt; insertTvSeriesWatchlist(TvSeriesTable tvSeries) async {</a>
+<a name="18"><span class="lineNum">      18 </span>            :   Future&lt;String&gt; insertTvWatchlist(TvSeriesTable tvSeries) async {</a>
 <a name="19"><span class="lineNum">      19 </span>            :     try {</a>
 <a name="20"><span class="lineNum">      20 </span><span class="lineCov">          2 :       await databaseHelper.insertTvSeriesWatchlist(tvSeries);</span></a>
 <a name="21"><span class="lineNum">      21 </span>            :       return 'Added to Watchlist';</a>
@@ -87,7 +87,7 @@
 <a name="25"><span class="lineNum">      25 </span>            :   }</a>
 <a name="26"><span class="lineNum">      26 </span>            : </a>
 <a name="27"><span class="lineNum">      27 </span><span class="lineCov">          1 :   @override</span></a>
-<a name="28"><span class="lineNum">      28 </span>            :   Future&lt;String&gt; removeTvSeriesWatchlist(TvSeriesTable tvSeries) async {</a>
+<a name="28"><span class="lineNum">      28 </span>            :   Future&lt;String&gt; removeTvWatchlist(TvSeriesTable tvSeries) async {</a>
 <a name="29"><span class="lineNum">      29 </span>            :     try {</a>
 <a name="30"><span class="lineNum">      30 </span><span class="lineCov">          2 :       await databaseHelper.removeTvSeriesWatchlist(tvSeries);</span></a>
 <a name="31"><span class="lineNum">      31 </span>            :       return 'Removed from Watchlist';</a>

@@ -18,10 +18,10 @@ void main() {
   test('should get list of movies from the repository', () async {
     // arrange
     when(mockTVRepository.getWatchlistTv())
-        .thenAnswer((_) async => Right(testTVSeriesList));
+        .thenAnswer((_) async => Right(testTvList));
     // act
     final result = await usecase.execute();
     // assert
-    expect(result, Right(testTVSeriesList));
+    expect(result, Right(testTvList));
   });
 }

@@ -119,6 +119,7 @@ class DatabaseHelper {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 
   Future<List<Map<String, dynamic>>> getWatchlistTvSeries() async {
