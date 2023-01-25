@@ -1,4 +1,3 @@
-import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/presentation/bloc/movie/search/search_movies_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/search/search_tv_bloc.dart';
 import 'package:ditonton/presentation/widgets/card_list.dart';
