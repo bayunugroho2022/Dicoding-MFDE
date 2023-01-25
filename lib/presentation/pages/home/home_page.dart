@@ -6,6 +6,7 @@ import 'package:ditonton/presentation/pages/movie/home_movie_page.dart';
 import 'package:ditonton/presentation/pages/tv/tv_page.dart';
 import 'package:ditonton/presentation/pages/watchlist/watchlist_page.dart';
 import 'package:ditonton/presentation/pages/search/search_page.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,6 +44,7 @@ class _HomePageState extends State<HomePage> {
                   leading: Icon(Icons.movie),
                   title: Text('Movies'),
                   onTap: () {
+                    FirebaseAnalytics.instance.logEvent(name: "tap_to_movies_page", parameters: null);
                     context.read<HomeBloc>().add(OnPageChanged(0));
                     Navigator.pop(context);
                     // Navigator.pop(context);
@@ -52,20 +54,22 @@ class _HomePageState extends State<HomePage> {
                   leading: Icon(Icons.tv),
                   title: Text('Tv Series'),
                   onTap: () {
+                    FirebaseAnalytics.instance.logEvent(name: "tap_to_tv_page", parameters: null);
                     context.read<HomeBloc>().add(OnPageChanged(1));
                     Navigator.pop(context);
-                    // Navigator.pushNamed(context, TvSeriesScreen.ROUTE_NAME);
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.save_alt),
                   title: Text('Watchlist'),
                   onTap: () {
+                    FirebaseAnalytics.instance.logEvent(name: "tap_to_watchlist_page", parameters: null);
                     Navigator.pushNamed(context, WatchlistPage.ROUTE_NAME);
                   },
                 ),
                 ListTile(
                   onTap: () {
+                    FirebaseAnalytics.instance.logEvent(name: "tap_to_about_page", parameters: null);
                     Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
                   },
                   leading: Icon(Icons.info_outline),

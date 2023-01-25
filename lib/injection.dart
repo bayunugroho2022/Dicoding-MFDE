@@ -1,5 +1,3 @@
-import 'package:ditonton/presentation/bloc/movie/search/search_movies_bloc.dart';
-import 'package:ditonton/presentation/bloc/tv/search/search_tv_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:ditonton/common/injection_import.dart';
 
@@ -79,4 +77,5 @@ void init() {
 
   // external
   locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingleton(() => SslPinning());
 }

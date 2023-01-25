@@ -41,3 +41,6 @@ export 'package:ditonton/presentation/bloc/tv/detail/detail_tv_bloc.dart';
 export 'package:ditonton/presentation/bloc/tv/recommendation/recommendation_tv_bloc.dart';
 export 'package:ditonton/presentation/bloc/tv/top_rated/top_rated_tv_bloc.dart';
 export 'package:ditonton/presentation/bloc/tv/watchlist/watchlist_tv_series_bloc.dart';
+export 'package:ditonton/common/ssl_pinning.dart';
+export 'package:ditonton/presentation/bloc/movie/search/search_movies_bloc.dart';
+export 'package:ditonton/presentation/bloc/tv/search/search_tv_bloc.dart';
