@@ -69,7 +69,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ListTile(
                   onTap: () {
-                    FirebaseAnalytics.instance.logEvent(name: "tap_to_about_page", parameters: null);
+                    FirebaseAnalytics.instance.logEvent(
+                      name: "open_about_page",
+                      parameters: {
+                        "from": state.index == 0 ? "movie" : "tv",
+                      },
+                    );
                     Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
                   },
                   leading: Icon(Icons.info_outline),
