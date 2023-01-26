@@ -76,6 +76,5 @@ void init() {
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
-  locator.registerLazySingleton(() => SslPinning());
+  locator.registerLazySingleton(() => SslPinning.client);
 }

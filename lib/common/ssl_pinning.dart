@@ -7,23 +7,27 @@ import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
 class SslPinning extends IOClient {
-  Future<http.Client> get _instance async => _clientInstance ??= await createLEClient();
+
+  static Future<http.Client> get _instance async =>
+      _clientInstance ??= await _createLEClient();
   static http.Client? _clientInstance;
+
   static http.Client get client => _clientInstance ?? http.Client();
+
+  static String certificatePath = 'certificates/certificate.cer';
+
+  static String _certificatedString = rootBundle.load(certificatePath).toString();
+
   static _log(String message) => kReleaseMode ? null : print(message);
 
-  Future<void> init() async {
-    _clientInstance = await _instance;
-  }
+  static Future<void> init() async { _clientInstance = await _instance; }
 
-  String _certificatedString =   rootBundle.load('certificates/certificate.cer').toString();
-
-  Future<http.Client> createLEClient({bool isTestMode = false}) async {
+  static Future<http.Client> _createLEClient({bool isTestMode = false}) async {
     IOClient client = IOClient(await customHttpClient(isTestMode: isTestMode));
     return client;
   }
 
-  Future<HttpClient> customHttpClient({
+  static Future<HttpClient> customHttpClient({
     bool isTestMode = false,
   }) async {
     final context = SecurityContext(
@@ -38,7 +42,7 @@ class SslPinning extends IOClient {
       } else {
         try {
           certFileBytes =
-              (await rootBundle.load('certificates/certificate.cer'))
+              (await rootBundle.load(certificatePath))
                   .buffer
                   .asInt8List();
           _log('Successfully access and load certificate.cer file!');
@@ -68,5 +72,4 @@ class SslPinning extends IOClient {
 
     return httpClient;
   }
-
 }

@@ -24,6 +24,8 @@ class TvRepositoryImpl implements TvRepository {
     try {
       final result = await remoteDataSource.getNowPlayingTv();
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException catch (e) {
+      return Left(CertificateNotValid('Certificate not valid\n${e.message}'));
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -37,6 +39,8 @@ class TvRepositoryImpl implements TvRepository {
     try {
       final result = await remoteDataSource.getTvRecommendations(id);
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException catch (e) {
+      return Left(CertificateNotValid('Certificate not valid\n${e.message}'));
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -49,6 +53,8 @@ class TvRepositoryImpl implements TvRepository {
     try {
       final result = await remoteDataSource.getPopularTv();
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException catch (e) {
+      return Left(CertificateNotValid('Certificate not valid\n${e.message}'));
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -61,6 +67,8 @@ class TvRepositoryImpl implements TvRepository {
     try {
       final result = await remoteDataSource.getTopRatedTv();
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException catch (e) {
+      return Left(CertificateNotValid('Certificate not valid\n${e.message}'));
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -73,6 +81,8 @@ class TvRepositoryImpl implements TvRepository {
     try {
       final result = await remoteDataSource.searchTv(query);
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException catch (e) {
+      return Left(CertificateNotValid('Certificate not valid\n${e.message}'));
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -85,8 +95,10 @@ class TvRepositoryImpl implements TvRepository {
     try {
       final result = await remoteDataSource.getTvDetail(id);
       return Right(result.toEntity());
-    } on ServerException {
-      return Left(ServerFailure(''));
+    } on TlsException catch (e) {
+      return Left(CertificateNotValid('Certificate not valid\n${e.message}'));
+    }  on ServerException {
+      return Left(ServerFailure('terjadi kesalahan pada server'));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
     }

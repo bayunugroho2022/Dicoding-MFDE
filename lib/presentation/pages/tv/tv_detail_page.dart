@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/movie/genre.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';
-import 'package:ditonton/presentation/bloc/movie/recommendation/recommendation_movies_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/detail/detail_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/recommendation/recommendation_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/watchlist/watchlist_tv_series_bloc.dart';
@@ -55,8 +54,24 @@ class _TvDetailPageState extends State<TvDetailPage> {
             return Center(
               child: CircularProgressIndicator(),
             );
+          } else if (state is DetailTvError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(state.message),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      },
+                    child: Text('Kembali'),
+                  ),
+                ],
+              ),
+            );
           } else {
-            return Text('Error');
+            return Center(child: Text('Error'));
           }
         },
       ),
@@ -79,7 +94,7 @@ class DetailContent extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: 'https://image.tmdb.org/t/p/w500${tv.posterPath}',
+          imageUrl: 'https://image.tmdb.org/t/p/w500${tv.posterPath}'.replaceAll("null", ""),
           width: screenWidth,
           placeholder: (context, url) => Center(
             child: CircularProgressIndicator(),
@@ -125,9 +140,7 @@ class DetailContent extends StatelessWidget {
                                       .add(DeleteWatchlistTv(tv));
                                 }
 
-                                final state =
-                                    BlocProvider.of<WatchlistTvBloc>(context)
-                                        .state;
+                                final state = BlocProvider.of<WatchlistTvBloc>(context).state;
                                 String message = "";
                                 String insertMessage = "Added to Watchlist";
                                 String deleteMessage = "Removed from Watchlist";
@@ -216,48 +229,34 @@ class DetailContent extends StatelessWidget {
                                     padding: const EdgeInsets.all(4.0),
                                     child: Column(
                                       children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.pushReplacementNamed(
-                                              context,
-                                              TvDetailPage.ROUTE_NAME,
-                                              arguments: tvSeriesData.id,
-                                            );
-                                          },
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(8),
-                                            ),
-                                            child: CachedNetworkImage(
-                                                height: 100,
-                                                fit: BoxFit.cover,
-                                                imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${tvSeriesData.posterPath}',
-                                                placeholder: (context, url) =>
-                                                    Center(
-                                                      child:
-                                                          CircularProgressIndicator(),
-                                                    ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Container(
-                                                          color: Colors.white,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: Image.asset(
-                                                              'assets/no_image.png',
-                                                              fit: BoxFit.cover,
-                                                              width: 60,
-                                                            ),
-                                                          ),
-                                                        )),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(8),
                                           ),
+                                          child: CachedNetworkImage(
+                                              height: 100,
+                                              fit: BoxFit.cover,
+                                              imageUrl: 'https://image.tmdb.org/t/p/w500${tvSeriesData.posterPath}'.replaceAll("null", ""),
+                                              placeholder: (context, url) =>
+                                                  Center(
+                                                    child: CircularProgressIndicator(),
+                                                  ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Container(
+                                                        color: Colors.white,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: Image.asset(
+                                                            'assets/no_image.png',
+                                                            fit: BoxFit.cover,
+                                                            width: 60,
+                                                          ),
+                                                        ),
+                                                      )),
                                         ),
                                         Text(tvSeriesData.name),
-                                        Text(
-                                            "Episode : ${tvSeriesData.episodeCount}"),
+                                        Text("Episode : ${tvSeriesData.episodeCount}"),
                                       ],
                                     ),
                                   );
@@ -270,15 +269,13 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            BlocBuilder<RecommendationMoviesBloc,
-                                RecommendationMoviesState>(
+                            BlocBuilder<RecommendationTvBloc, RecommendationTvState>(
                               builder: (context, state) {
-                                if (state is RecommendationMoviesLoading) {
+                                if (state is RecommendationTvLoading) {
                                   return Center(
                                     child: CircularProgressIndicator(),
                                   );
-                                } else if (state
-                                    is RecommendationMoviesHasData) {
+                                } else if (state is RecommendationTvLoaded) {
                                   final result = state.result;
                                   return Container(
                                     height: 150,
@@ -301,8 +298,7 @@ class DetailContent extends StatelessWidget {
                                                 Radius.circular(8),
                                               ),
                                               child: CachedNetworkImage(
-                                                imageUrl:
-                                                    '$BASE_IMAGE_URL${data.posterPath}',
+                                                imageUrl:'$BASE_IMAGE_URL${data.posterPath}'.replaceAll("null", ""),
                                                 placeholder: (context, url) =>
                                                     Center(
                                                   child:
@@ -310,7 +306,17 @@ class DetailContent extends StatelessWidget {
                                                 ),
                                                 errorWidget:
                                                     (context, url, error) =>
-                                                        Icon(Icons.error),
+                                                        Container(
+                                                          color: Colors.white,
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            child: Image.asset(
+                                                              'assets/no_image.png',
+                                                              fit: BoxFit.cover,
+                                                              width: 60,
+                                                            ),
+                                                          ),
+                                                        ),
                                               ),
                                             ),
                                           ),
@@ -319,14 +325,20 @@ class DetailContent extends StatelessWidget {
                                       itemCount: result.length,
                                     ),
                                   );
-                                } else if (state is RecommendationMoviesError) {
+                                } else if (state is RecommendationTvError) {
                                   return Expanded(
                                     child: Center(
                                       child: Text(state.message),
                                     ),
                                   );
+                                } else {
+                                  return Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                      child: Text('Tidak ada Reccomendation Tv'),
+                                    ),
+                                  );
                                 }
-                                return Container();
                               },
                             ),
                           ],
@@ -345,9 +357,7 @@ class DetailContent extends StatelessWidget {
                 ),
               );
             },
-            // initialChildSize: 0.5,
             minChildSize: 0.25,
-            // maxChildSize: 1.0,
           ),
         ),
         Padding(
