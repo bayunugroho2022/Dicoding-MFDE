@@ -179,3 +179,10 @@ final testSeasonTVSeriesModel = SeasonModel(
 final testSeason = testSeasonTVSeriesModel.toEntity();
 
 final testSeasonMap = testSeasonTVSeriesModel.toJson();
+
+final testTvWatchlist = Tv.watchlist(
+  id: 1,
+  overview: 'overview',
+  posterPath: 'posterPath',
+  name: 'name',
+);
