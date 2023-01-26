@@ -1,4 +1,3 @@
-import 'package:http/http.dart' as http;
 import 'package:ditonton/common/injection_import.dart';
 
 final locator = GetIt.instance;
