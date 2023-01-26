@@ -165,7 +165,7 @@ void main() {
       final result = await repository.getTvDetail(tId);
       // assert
       verify(mockRemoteDataSource.getTvDetail(tId));
-      expect(result, equals(Left(ServerFailure(''))));
+      expect(result, equals(Left(ServerFailure('terjadi kesalahan pada server'))));
     });
 
     test(
